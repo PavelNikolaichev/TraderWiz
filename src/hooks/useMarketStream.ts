@@ -1,29 +1,37 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import logger from "@utils/logger";
+import { useStore } from "../store/useStore";
 
 export const useMarketStream = (url: string) => {
-  // TODO: improve typing in here - serialize the data state.
-  const [priceData, setPriceData] = useState(null);
+  const addMarketData = useStore((state) => state.addMarketData);
+  const setConnectionStatus = useStore((state) => state.setConnectionStatus);
 
   useEffect(() => {
     const eventSource = new EventSource(url);
 
+    eventSource.onopen = () => {
+      logger.info({ msg: "Market stream connected" });
+      setConnectionStatus(true);
+    };
+
     eventSource.onmessage = (event) => {
-      logger.debug({ msg: "Received market data event", event });
-      const parsedData = JSON.parse(event.data);
-      logger.debug({ msg: "Parsed market data", data: parsedData });
-      setPriceData(parsedData);
+      try {
+        const parsedData = JSON.parse(event.data);
+        addMarketData(parsedData);
+      } catch (error) {
+        logger.error({ msg: "Failed to parse market data", error });
+      }
     };
 
     eventSource.onerror = (error) => {
       logger.error({ msg: "EventSource failed", error });
+      setConnectionStatus(false);
       eventSource.close();
     };
 
     return () => {
+      setConnectionStatus(false);
       eventSource.close();
     };
-  }, [url]);
-
-  return priceData;
+  }, [url, addMarketData, setConnectionStatus]);
 };

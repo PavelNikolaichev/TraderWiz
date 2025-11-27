@@ -1,9 +1,6 @@
-import logger from "@utils/logger";
-import { useMarketStream } from "./useMarketStream";
+import { useStore } from "../store/useStore";
+
 export const useMarketData = () => {
-  logger.info("Fetching market data...");
-  // Fetch market data logic here
-  const marketData = useMarketStream("https://example.com/market-stream");
-  logger.info("Market data fetched successfully. Beginning serialization...");
+  const marketData = useStore((state) => state.latestMarketData);
   return marketData;
 };

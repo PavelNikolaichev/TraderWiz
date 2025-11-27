@@ -1,6 +1,12 @@
 import { Sidebar } from '@components/Layout/Sidebar'
+import { PriceChart } from '@components/Chart/PriceChart'
+import { MarketStats } from '@components/Dashboard/MarketStats'
+import { MarketTicker } from '@components/Dashboard/MarketTicker'
+import { useChartData } from '../../hooks/useChartData'
 
 export const Body = () => {
+    const btcData = useChartData('BTC');
+
     return (
         <div className="flex flex-1 overflow-hidden">
             <Sidebar />
@@ -9,32 +15,23 @@ export const Body = () => {
                     <div className="flex justify-between items-center mb-6">
                         <h2 className="text-2xl font-bold text-gray-800">Dashboard</h2>
                     </div>
-                    
+
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {/* Top Stats Row */}
-                        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                            <h3 className="text-gray-500 text-sm font-medium">Total Balance</h3>
-                            <p className="text-2xl font-bold text-gray-900 mt-2">$12,345.67</p>
-                        </div>
-                        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                            <h3 className="text-gray-500 text-sm font-medium">24h Profit</h3>
-                            <p className="text-2xl font-bold text-green-600 mt-2">+$123.45</p>
-                        </div>
-                        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                            <h3 className="text-gray-500 text-sm font-medium">Active Trades</h3>
-                            <p className="text-2xl font-bold text-gray-900 mt-2">5</p>
-                        </div>
-                        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                            <h3 className="text-gray-500 text-sm font-medium">Win Rate</h3>
-                            <p className="text-2xl font-bold text-gray-900 mt-2">68%</p>
-                        </div>
+                        <MarketStats
+                            totalBalance="$12,345.67"
+                            profit24h="+$123.45"
+                            activeTrades={5}
+                            winRate="68%"
+                        />
 
                         {/* Main Chart Area - Spans 2 columns on large screens, 3 on XL */}
                         <div className="md:col-span-2 lg:col-span-2 xl:col-span-3 bg-white p-6 rounded-lg shadow-sm border border-gray-100 min-h-[400px] flex flex-col">
-                            <h3 className="text-lg font-semibold mb-4">Price Chart</h3>
-                            <div className="flex-1 flex items-center justify-center bg-gray-50 rounded border border-dashed border-gray-300 overflow-hidden">
-                                <p className="text-gray-400">Chart Component Placeholder</p>
-                            </div>
+                            {/* Price Chart Component */}
+                            <PriceChart
+                                title="BTC/USD Price"
+                                data={btcData}
+                            />
                         </div>
 
                         {/* Side Panel / Recent Activity */}
@@ -51,6 +48,9 @@ export const Body = () => {
                                 </div>
                             </div>
                         </div>
+
+                        {/* Live Market Ticker */}
+                        <MarketTicker />
                     </div>
                 </div>
             </main>
