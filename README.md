@@ -1,73 +1,99 @@
-# React + TypeScript + Vite
+# TraderWiz 📈
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+TraderWiz is a modern, real-time cryptocurrency dashboard application built with React, TypeScript, and Vite. It provides live market updates and interactive charts to visualize cryptocurrency price movements.
 
-Currently, two official plugins are available:
+Note, this project requires SSE backend for full functionality, you can use either the mock server provided, or use [the proper backend](https://github.com/PavelNikolaichev/TraderWizFetcher)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## React Compiler
+- **Real-time Data Streaming**: Connects to a live Server-Sent Events (SSE) stream to receive instant price updates for top cryptocurrencies like Bitcoin and Ethereum.
+- **Interactive Charts**: Visualizes price history and trends using `lightweight-charts` for high-performance financial charting.
+- **Live Market Ticker**: Displays real-time statistics including price, 24h change, and volume.
+- **State Management**: robust global state management with `zustand`, featuring data persistence for market history.
+- **Responsive Design**: A clean, modern interface built with **Tailwind CSS** that works across devices.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Tech Stack
 
-## Expanding the ESLint configuration
+- **Frontend Framework**: [React](https://react.dev/) (v19)
+- **Build Tool**: [Vite](https://vitejs.dev/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **State Management**: [Zustand](https://github.com/pmndrs/zustand)
+- **Charting**: [Lightweight Charts](https://tradingview.github.io/lightweight-charts/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Linting**: ESLint
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Getting Started
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Follow these steps to get the project running locally.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Prerequisites
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Node.js (v18 or higher recommended)
+- npm, pnpm, or yarn
+
+### Installation
+
+1. **Clone the repository**
+
+2. **Install dependencies:**
+
+   ```bash
+   npm install
+   # or
+   pnpm install
+   # or
+   yarn install
+   ```
+
+3. **Environment Setup:**
+
+   Create a `.env` file in the root directory based on the example:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   Ensure your `.env` file points to the local mock server or backend (SSE stream):
+
+   ```env
+   VITE_MARKET_STREAM_URL=http://localhost:8000/stream/price-feed
+   VITE_LOG_LEVEL=info
+   ```
+
+The rest is the usual build and deployment for Vite projects.
+
+## 📂 Project Structure
+
+```text
+TraderWiz/
+├── public/              # Static assets
+├── src/
+│   ├── assets/          # Project assets (images, etc.)
+│   ├── components/      # React components
+│   │   ├── Chart/       # Charting related components
+│   │   ├── Dashboard/   # Dashboard widgets (Stats, Ticker)
+│   │   └── Layout/      # Layout components (Header, Sidebar, etc.)
+│   ├── hooks/           # Custom React hooks (useChartData, useMarketStream)
+│   ├── store/           # Zustand state stores
+│   ├── types/           # Type definitions
+│   ├── utils/           # Utility functions
+│   ├── App.tsx          # Main application component
+│   └── main.tsx         # Entry point
+├── mock-server.js       # Node.js mock server for data streaming
+├── .env.example         # Environment variables example
+├── package.json         # Project dependencies and scripts
+└── vite.config.ts       # Vite configuration
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📜 Available Scripts
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- `npm run dev`: Starts the Vite development server.
+- `npm run server`: Starts the mock Node.js server for data streaming.
+- `npm run build`: Builds the application for production.
+- `npm run preview`: Previews the production build locally.
+- `npm run lint`: Runs ESLint to check for code quality issues.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
