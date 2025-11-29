@@ -2,7 +2,7 @@ import { useState } from "react"
 import { SidebarOpen, SidebarClose } from 'lucide-react'
 
 export const Sidebar = () => {
-    const [isCollapsed, setIsCollapsed] = useState(false);
+    const [isCollapsed, setIsCollapsed] = useState(true);
     return (
         <>
             <aside className={`w-64 bg-gray-100 p-4 ${isCollapsed ? "hidden" : "block"}`}>

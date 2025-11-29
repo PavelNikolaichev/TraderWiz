@@ -6,6 +6,9 @@ export const useChartData = (symbol: string): PriceData[] => {
 
   return history
     .map((entry) => {
+      if (!entry.data) {
+        return { time: entry.timestamp / 1000, value: 0 };
+      }
       const item = entry.data.find((i) => i.symbol === symbol);
       return {
         // Convert ms timestamp to seconds for lightweight-charts

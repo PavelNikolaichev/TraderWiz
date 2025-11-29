@@ -7,7 +7,6 @@ import './App.css'
 import logger from '@utils/logger'
 
 
-
 function App() {
   const MARKET_STREAM_URL = import.meta.env.VITE_MARKET_STREAM_URL;
   if (!MARKET_STREAM_URL) {

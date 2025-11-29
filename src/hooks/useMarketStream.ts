@@ -25,8 +25,9 @@ export const useMarketStream = (url: string) => {
 
     eventSource.onerror = (error) => {
       logger.error({ msg: "EventSource failed", error });
-      setConnectionStatus(false);
-      eventSource.close();
+      // For now, we will try to reconnect automatically
+      // setConnectionStatus(false);
+      // eventSource.close();
     };
 
     return () => {
