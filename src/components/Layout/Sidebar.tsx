@@ -1,12 +1,12 @@
 import { useState } from "react"
 import {
     LayoutDashboard,
-    PieChart,
-    Newspaper,
-    Settings,
+    // PieChart,
+    // Newspaper,
+    // Settings,
     ChevronLeft,
     ChevronRight,
-    LogOut
+    // LogOut
 } from 'lucide-react'
 import { clsx } from 'clsx';
 
