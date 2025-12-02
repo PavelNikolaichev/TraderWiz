@@ -4,6 +4,7 @@ import { useStore } from "../store/useStore";
 
 export const useMarketStream = (url: string) => {
   const addMarketData = useStore((state) => state.addMarketData);
+  const resetMarketData = useStore((state) => state.reset);
   const setConnectionStatus = useStore((state) => state.setConnectionStatus);
 
   useEffect(() => {
@@ -11,6 +12,7 @@ export const useMarketStream = (url: string) => {
 
     eventSource.onopen = () => {
       logger.info({ msg: "Market stream connected" });
+      resetMarketData();
       setConnectionStatus(true);
     };
 

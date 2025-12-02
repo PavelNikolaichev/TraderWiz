@@ -1,6 +1,7 @@
 import { useChartData } from '@hooks/useChartData';
-import { useChartSettings } from '../../store/useChartSettings';
-import { ChartComponent } from './ChartComponent';
+import { useChartSettings } from '@store/useChartSettings';
+import { ChartComponent } from '@components/Chart/ChartComponent';
+import ErrorBoundary from '@components/ErrorBoundary';
 
 export const PriceChart = () => {
     const { symbol } = useChartSettings();
@@ -10,7 +11,9 @@ export const PriceChart = () => {
         <div className="flex-1 w-full h-full min-h-[400px] relative group">
             {/* Chart Container */}
             <div className="absolute inset-0 bg-white rounded-lg overflow-hidden">
-                <ChartComponent data={data} key={symbol} />
+                <ErrorBoundary>
+                    <ChartComponent data={data} key={symbol} />
+                </ErrorBoundary>
             </div>
 
             {/* Loading State Overlay (optional, if data is loading) */}

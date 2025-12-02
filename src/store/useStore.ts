@@ -8,6 +8,7 @@ interface MarketState {
   isConnected: boolean;
   addMarketData: (data: MarketDataResponse) => void;
   setConnectionStatus: (status: boolean) => void;
+  reset: () => void;
 }
 
 export const useStore = create<MarketState>()(
@@ -29,6 +30,8 @@ export const useStore = create<MarketState>()(
           };
         }),
       setConnectionStatus: (isConnected) => set({ isConnected }),
+      reset: () =>
+        set({ latestMarketData: null, marketHistory: [], isConnected: false }),
     }),
     {
       name: "market-storage",

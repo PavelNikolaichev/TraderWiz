@@ -85,11 +85,12 @@ export const ChartComponent = ({ data }: ChartComponentProps) => {
     }, [data]);
 
     return (
-        <div className="flex items-center justify-center w-full h-full">
-            {data && data.length > 0 ? (
-                <div id="chart" className="w-full h-full" ref={chartRef} />
-            ) : (
-                <p className="text-gray-400">No data available</p>
+        <div className="flex items-center justify-center w-full h-full relative">
+            <div id="chart" className="w-full h-full" ref={chartRef} />
+            {(!data || data.length === 0) && (
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+                    <p className="text-gray-400">No data available</p>
+                </div>
             )}
         </div>
     );

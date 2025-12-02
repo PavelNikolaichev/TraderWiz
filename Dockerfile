@@ -1,6 +1,9 @@
 FROM node:22.21.0-alpine AS builder
 WORKDIR /app
 
+ARG VITE_MARKET_STREAM_URL
+ENV VITE_MARKET_STREAM_URL=$VITE_MARKET_STREAM_URL
+
 RUN npm install -g pnpm
 
 COPY package*.json ./
